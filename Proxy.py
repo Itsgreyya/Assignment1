@@ -136,8 +136,10 @@ while True:
     print ('Connecting to:\t\t' + hostname + '\n')
     try:
       # Get the IP address for a hostname
+      address = socket.gethostbyname(hostname)
       # Connect to the origin server
       # ~~~~ INSERT CODE ~~~~
+      originServerSocket.connect((address, 80))
       # ~~~~ END CODE INSERT ~~~~
       print ('Connected to origin Server')
 
@@ -170,10 +172,17 @@ while True:
 
       # Get the response from the origin server
       # ~~~~ INSERT CODE ~~~~
+      originResponse = b''
+      while True:
+          data = originServerSocket.recv(BUFFER_SIZE)
+          if not data:
+            break
+          originResponse += data
       # ~~~~ END CODE INSERT ~~~~
 
       # Send the response to the client
       # ~~~~ INSERT CODE ~~~~
+      clientSocket.sendall(originResponse)
       # ~~~~ END CODE INSERT ~~~~
 
       # Create a new file in the cache for the requested file.
@@ -185,6 +194,7 @@ while True:
 
       # Save origin server response in the cache file
       # ~~~~ INSERT CODE ~~~~
+      cacheFile.write(originResponse)
       # ~~~~ END CODE INSERT ~~~~
       cacheFile.close()
       print ('cache file closed')
