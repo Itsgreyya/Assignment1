@@ -139,7 +139,7 @@ while True:
       address = socket.gethostbyname(hostname)
       # Connect to the origin server
       # ~~~~ INSERT CODE ~~~~
-      originServerSocket.connect((address, 80))
+      originServerSocket.connect((address, 80)) 
       # ~~~~ END CODE INSERT ~~~~
       print ('Connected to origin Server')
 
@@ -172,12 +172,7 @@ while True:
 
       # Get the response from the origin server
       # ~~~~ INSERT CODE ~~~~
-      originResponse = b''
-      while True:
-          data = originServerSocket.recv(BUFFER_SIZE)
-          if not data:
-            break
-          originResponse += data
+      originResponse = originServerSocket.recv(BUFFER_SIZE)
       # ~~~~ END CODE INSERT ~~~~
 
       # Send the response to the client
