@@ -20,7 +20,7 @@ proxyPort = int(args.port)
 try:
   # Create a server socket
   # ~~~~ INSERT CODE ~~~~
-  serverSocket = socket.socket(socket.AF_INET,socket.SOCK_STREAM) #create socket
+  serverSocket = socket.socket(socket.AF_INET,socket.SOCK_STREAM) #create socket using TCP
   # ~~~~ END CODE INSERT ~~~~
   print ('Created socket')
 except:
@@ -55,6 +55,7 @@ while True:
   # Accept connection from client and store in the clientSocket
   try:
     # ~~~~ INSERT CODE ~~~~
+    connectionSocket = serverSocket.accept() #TCP connection setup
     # ~~~~ END CODE INSERT ~~~~
     print ('Received a connection')
   except:
