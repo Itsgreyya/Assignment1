@@ -20,7 +20,7 @@ proxyPort = int(args.port)
 try:
   # Create a server socket
   # ~~~~ INSERT CODE ~~~~
-  serverSocket = socket.socket(socket.AF_INET,socket.SOCK_STREAM) #create socket using TCP
+  serverSocket = socket.socket(socket.AF_INET,socket.SOCK_STREAM) #create IPV4 socket  TCP
   # ~~~~ END CODE INSERT ~~~~
   print ('Created socket')
 except:
@@ -55,7 +55,7 @@ while True:
   # Accept connection from client and store in the clientSocket
   try:
     # ~~~~ INSERT CODE ~~~~
-    connectionSocket = serverSocket.accept() #TCP connection setup
+    clientSockete, clientAddress = serverSocket.accept() 
     # ~~~~ END CODE INSERT ~~~~
     print ('Received a connection')
   except:
@@ -65,7 +65,7 @@ while True:
   # Get HTTP request from client
   # and store it in the variable: message_bytes
   # ~~~~ INSERT CODE ~~~~
-  message_bytes = clientSocket.recvfrom(BUFFER_SIZE) 
+  message_bytes = clientSocket.recv(BUFFER_SIZE) 
   # ~~~~ END CODE INSERT ~~~~
   message = message_bytes.decode('utf-8')
   print ('Received request:')
