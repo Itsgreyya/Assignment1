@@ -119,7 +119,7 @@ while True:
     # Send back response to client 
     # ~~~~ INSERT CODE ~~~~
     for content in cacheData:
-      clientSocket.sendto(content.encode())
+      clientSocket.send(content.encode())
     # ~~~~ END CODE INSERT ~~~~
     cacheFile.close()
     print ('Sent to the client:')
