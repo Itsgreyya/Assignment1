@@ -65,6 +65,7 @@ while True:
   # Get HTTP request from client
   # and store it in the variable: message_bytes
   # ~~~~ INSERT CODE ~~~~
+  message_bytes = clientSocket.recvfrom(BUFFER_SIZE) 
   # ~~~~ END CODE INSERT ~~~~
   message = message_bytes.decode('utf-8')
   print ('Received request:')
@@ -132,7 +133,6 @@ while True:
     print ('Connecting to:\t\t' + hostname + '\n')
     try:
       # Get the IP address for a hostname
-      address = socket.gethostbyname(hostname)
       # Connect to the origin server
       # ~~~~ INSERT CODE ~~~~
       # ~~~~ END CODE INSERT ~~~~
