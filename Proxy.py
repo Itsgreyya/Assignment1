@@ -55,7 +55,7 @@ while True:
   # Accept connection from client and store in the clientSocket
   try:
     # ~~~~ INSERT CODE ~~~~
-    clientSockete, clientAddress = serverSocket.accept() 
+    clientSocket, clientAddress = serverSocket.accept() 
     # ~~~~ END CODE INSERT ~~~~
     print ('Received a connection')
   except:
