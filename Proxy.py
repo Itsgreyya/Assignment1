@@ -4,7 +4,7 @@ import sys
 import os
 import argparse
 import re
-
+import time #we need timer to record whether the cache is expired
 # 1MB buffer size
 BUFFER_SIZE = 1000000
 
@@ -118,6 +118,15 @@ while True:
     # ProxyServer finds a cache hit
     # Send back response to client 
     # ~~~~ INSERT CODE ~~~~
+    #check whether cache is expired
+    cache_control = re.search(r'Cache-Control:.*?max-age=(\d+)', cacheFile, re.IGNORECASE)
+    maxage = int(cache_control.group(1)) if cache_control else None 
+    modified_time = os.path.gettime(cacheLocation) #when the cache loaded and record time 
+    cacheage = time.time() - modified_time #cache age = current time - modified time
+    if cacheage > maxage:
+      print('cache expired')
+
+
     for content in cacheData:
       clientSocket.send(content.encode())
     # ~~~~ END CODE INSERT ~~~~
