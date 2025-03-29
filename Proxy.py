@@ -113,13 +113,14 @@ while True:
     # Check wether the file is currently in the cache
     cacheFile = open(cacheLocation, "r")
     cacheData = cacheFile.readlines()
+    cachestr = ''.join(cacheData)
 
     print ('Cache hit! Loading from cache file: ' + cacheLocation)
     # ProxyServer finds a cache hit
     # Send back response to client 
     # ~~~~ INSERT CODE ~~~~
     #check whether cache is expired
-    cache_control = re.search(r'Cache-Control:.*?max-age=(\d+)', cacheFile, re.IGNORECASE)
+    cache_control = re.search(r'Cache-Control:.*?max-age=(\d+)', cacheData, re.IGNORECASE)
     maxage = int(cache_control.group(1)) if cache_control else None 
     modified_time = os.path.gettime(cacheLocation) #when the cache loaded and record time 
     cacheage = time.time() - modified_time #cache age = current time - modified time
