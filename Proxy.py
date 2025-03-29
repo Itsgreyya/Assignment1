@@ -173,6 +173,17 @@ while True:
       # Get the response from the origin server
       # ~~~~ INSERT CODE ~~~~
       originResponse = originServerSocket.recv(BUFFER_SIZE)
+      response_header = originResponse.decode(errors='ignore').split('\r\n\r\n')[0] #should seperate the response and be able to read
+      status_line = response_header.splitlines()[0] #get the response code
+      if '301' in status_line or '302' in status_line: 
+        for line in response_header.splitlines():
+          if line.lower().startswith('location:'):
+              redirect_url = line.split(':', 1)[1].strip()
+              print(f'Redirecting to: {redirect_url}')
+              URI = redirect_url # if 301 302 then it should resend request or reprocess with a new URL
+              clientSocket.close()
+              originServerSocket.close()
+              continue  
       # ~~~~ END CODE INSERT ~~~~
 
       # Send the response to the client
